@@ -19,7 +19,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
-
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 import com.example.towngame.playerSelection.Player;
 import com.example.towngame.playerSelection.PlayerAdapter;
 import com.example.towngame.R;
@@ -66,10 +70,10 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_down, R.anim.slide_out_down);
             }
         });
-        adapter = new PlayerAdapter(this, new ArrayList<>());
-
         RecyclerView playerRecyclerView = findViewById(R.id.playerRecyclerView);
         playerRecyclerView.setLayoutManager(new GridLayoutManager(this, 3)); // 3 колонки
+
+        adapter = new PlayerAdapter(this, new ArrayList<>());
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing); // Define the spacing value in your resources
         playerRecyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         playerRecyclerView.setAdapter(adapter);
@@ -79,9 +83,11 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(playerRecyclerView);
 
         nextButton = (Button) findViewById(R.id.nextButton);
+        updateNextButtonState();
+
+        // Load players
 
         adapter.loadPlayers(this);
-        updateNextButtonState();
         adapter.notifyDataSetChanged();
     }
 
@@ -139,4 +145,42 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         adapter.savePlayers(this);
     }
 
+
+    public void openEditPlayerDialog(Player player, int position) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Новое имя:");
+
+        // Создаем поле ввода
+        final EditText input = new EditText(this);
+        builder.setView(input);
+
+        // Устанавливаем кнопки
+        builder.setPositiveButton("Изменить", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String playerName = input.getText().toString();
+                if (!playerName.isEmpty()) {
+                    adapter.players.get(position).setName(playerName);
+                }
+            }
+        });
+        builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    public static class PlayerViewHolder extends RecyclerView.ViewHolder {
+        TextView playerName;
+
+        public PlayerViewHolder(View itemView) {
+            super(itemView);
+            playerName = itemView.findViewById(R.id.playerName);
+        }
+    }
 }
