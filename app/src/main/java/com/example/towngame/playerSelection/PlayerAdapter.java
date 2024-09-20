@@ -8,6 +8,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.EditText;
+
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -50,16 +52,31 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
         // Обработчик клика для удаления игрока
         holder.itemView.setOnClickListener(v -> {
-            // Покажем диалоговое окно для подтверждения удаления
-            new AlertDialog.Builder(context)
-                    .setTitle("Удалить игрока")
-                    .setMessage("Вы уверены, что хотите удалить этого игрока?")
-                    .setPositiveButton("Удалить", (dialog, which) -> {
-                        // Удаляем игрока из списка и обновляем RecyclerView
-                        removePlayer(position);
-                    })
-                    .setNegativeButton("Отмена", null)
-                    .show();
+            // Покажем диалоговое окно для редактирования и удаления игрока
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Редактировать или удалить игрока");
+
+            // Создаем поле ввода для редактирования имени
+            EditText input = new EditText(context);
+            input.setText(player.getName());
+            builder.setView(input);
+
+            // Устанавливаем кнопки
+            builder.setPositiveButton("Сохранить", (dialog, which) -> {
+                String newName = input.getText().toString();
+                if (!newName.isEmpty()) {
+                    player.setName(newName); // Update the player's name
+                    notifyItemChanged(position); // Notify that the item has changed
+                }
+            });
+
+            builder.setNegativeButton("Удалить", (dialog, which) -> {
+                removePlayer(position); // Remove the player
+            });
+
+            builder.setNeutralButton("Отмена", null);
+
+            builder.show();
         });
     }
 

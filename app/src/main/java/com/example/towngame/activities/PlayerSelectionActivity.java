@@ -140,6 +140,9 @@ public class PlayerSelectionActivity extends AppCompatActivity {
 
     public void finishedOrganizingPlayers(View view){
         adapter.savePlayers(this);
+        Intent intent = new Intent(PlayerSelectionActivity.this, WelcomeActivity.class);
+        intent.putExtra("WELCOME_MESSAGE", "Передайте устройство игроку " + adapter.players.get(0) + "! А затем передавайте устройство по часовой стрелке, чтобы каждый игрок ознакомился со своей ролью!");
+        startActivity(intent);
     }
 
 
