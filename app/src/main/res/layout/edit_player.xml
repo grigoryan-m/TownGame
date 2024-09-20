@@ -1,0 +1,28 @@
+<!-- dialog_edit_player.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editPlayerName"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Введите имя" />
+
+    <Button
+        android:id="@+id/changePlayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Подтвердить" />
+
+    <Button
+        android:id="@+id/deletePlayerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        android:text="Удалить игрока"
+        android:textColor="#fff" />
+
+</LinearLayout>
