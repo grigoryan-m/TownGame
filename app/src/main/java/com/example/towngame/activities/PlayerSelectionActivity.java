@@ -79,9 +79,6 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         playerRecyclerView.setAdapter(adapter);
         // Add players button
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new PlayerItemTouchHelperCallback(adapter));
-        itemTouchHelper.attachToRecyclerView(playerRecyclerView);
-
         nextButton = (Button) findViewById(R.id.nextButton);
         updateNextButtonState();
 

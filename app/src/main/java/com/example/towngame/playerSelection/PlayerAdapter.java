@@ -64,9 +64,12 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     }
 
     // Метод для удаления игрока
-    private void removePlayer(int position) {
-        players.remove(position);
-        notifyItemRemoved(position);  // Сообщаем адаптеру, что элемент удален
+    public void removePlayer(int position) {
+        if (position >= 0 && position < players.size()) {
+            players.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, players.size()); // Notify that items have shifted
+        }
     }
 
     public class PlayerViewHolder extends RecyclerView.ViewHolder {
@@ -80,11 +83,6 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
     public int getItemCount() {
         return players.size();
-    }
-
-    public void onItemMove(int fromPosition, int toPosition) {
-        Collections.swap(players, fromPosition, toPosition);
-        notifyItemMoved(fromPosition, toPosition);
     }
 
     public void savePlayers(Context context) {
@@ -108,13 +106,4 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     }
 
 
-
 }
-    class PlayerViewHolder extends RecyclerView.ViewHolder {
-        TextView playerName;
-
-        public PlayerViewHolder(@NonNull View itemView) {
-            super(itemView);
-            playerName = itemView.findViewById(R.id.playerName);
-        }
-    }
