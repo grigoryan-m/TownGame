@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, PlayerSelectionActivity.class);
-                // Start the new activity with an animation
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+                overridePendingTransition(R.anim.slide_up, R.anim.slide_out_up);
             }
         });
     }

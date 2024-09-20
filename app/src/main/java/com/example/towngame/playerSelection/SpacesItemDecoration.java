@@ -27,10 +27,6 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
             outRect.left = spacing - column * spacing / spanCount; // Отступ слева для крайних элементов
             outRect.right = (column + 1) * spacing / spanCount; // Отступ справа для всех элементов
 
-            // Добавляем верхний отступ только для элементов первой строки
-            if (position < spanCount) {
-                outRect.top = spacing;
-            }
             outRect.bottom = spacing; // Нижний отступ
         } else {
             // Логика отступов без включения крайних элементов

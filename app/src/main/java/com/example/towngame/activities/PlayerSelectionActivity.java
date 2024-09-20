@@ -14,11 +14,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.towngame.playerSelection.Player;
 import com.example.towngame.playerSelection.PlayerAdapter;
 import com.example.towngame.R;
+import com.example.towngame.playerSelection.PlayerItemTouchHelperCallback;
 import com.example.towngame.playerSelection.SpacesItemDecoration;
 
 import java.util.ArrayList;
@@ -54,7 +56,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                 Intent intent = new Intent(PlayerSelectionActivity.this, MainActivity.class);
                 // Start the new activity with an animation
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                overridePendingTransition(R.anim.slide_down, R.anim.slide_out_down);
             }
         });
         adapter = new PlayerAdapter(this, players);
@@ -65,6 +67,9 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         playerRecyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         playerRecyclerView.setAdapter(adapter);
         // Addplayers button
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new PlayerItemTouchHelperCallback(adapter));
+        itemTouchHelper.attachToRecyclerView(playerRecyclerView);
 
         Button addPlayerButton = (Button) findViewById(R.id.addPlayerButton);
         addPlayerButton.setOnClickListener(new View.OnClickListener(){
@@ -81,4 +86,5 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         players.add(newPlayer); // Добавление игрока в список
         adapter.notifyDataSetChanged(); // Уведомление адаптера о том, что данные изменились
     }
+
 }

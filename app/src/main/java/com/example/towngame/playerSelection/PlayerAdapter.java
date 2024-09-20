@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.towngame.R;
 
+import java.util.Collections;
 import java.util.List;
 
 public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder> {
@@ -47,6 +48,12 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
             super(itemView);
             playerName = itemView.findViewById(R.id.playerName);
         }
+    }
+
+    public void onItemMove(int fromPosition, int toPosition) {
+        // Меняем элементы местами
+        Collections.swap(players, fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
     }
 
 }
