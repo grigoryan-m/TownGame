@@ -1,5 +1,6 @@
 package com.example.towngame.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,8 +8,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -28,11 +31,15 @@ import java.util.List;
 
 public class PlayerSelectionActivity extends AppCompatActivity {
 
-    private List<Player> players = new ArrayList<>();
+    // Constants
+    private final int MIN_PLAYERS = 1;
+
     private PlayerAdapter adapter;
+    Button nextButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_player_selection);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -59,32 +66,77 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_down, R.anim.slide_out_down);
             }
         });
-        adapter = new PlayerAdapter(this, players);
+        adapter = new PlayerAdapter(this, new ArrayList<>());
 
         RecyclerView playerRecyclerView = findViewById(R.id.playerRecyclerView);
         playerRecyclerView.setLayoutManager(new GridLayoutManager(this, 3)); // 3 колонки
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing); // Define the spacing value in your resources
         playerRecyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         playerRecyclerView.setAdapter(adapter);
-        // Addplayers button
+        // Add players button
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new PlayerItemTouchHelperCallback(adapter));
         itemTouchHelper.attachToRecyclerView(playerRecyclerView);
 
-        Button addPlayerButton = (Button) findViewById(R.id.addPlayerButton);
-        addPlayerButton.setOnClickListener(new View.OnClickListener(){
+        nextButton = (Button) findViewById(R.id.nextButton);
+
+        adapter.loadPlayers(this);
+        updateNextButtonState();
+        adapter.notifyDataSetChanged();
+    }
+
+
+    public void showAddPlayerDialog(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Введите имя игрока");
+
+        // Создаем поле ввода
+        final EditText input = new EditText(this);
+        builder.setView(input);
+
+        // Устанавливаем кнопки
+        builder.setPositiveButton("Добавить", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                addPlayer();
+            public void onClick(DialogInterface dialog, int which) {
+                String playerName = input.getText().toString();
+                if (!playerName.isEmpty()) {
+                    addPlayer(playerName);
+                }
             }
         });
+        builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
-    public void addPlayer() {
+
+
+
+
+    public void addPlayer(String name) {
         Log.d("YourActivity", "Кнопка нажата");
         // Создайте нового игрока (можно изменить имя или добавлять через ввод)
-        Player newPlayer = new Player("Игрок " + (players.size() + 1)); // Уникальное имя для каждого игрока
-        players.add(newPlayer); // Добавление игрока в список
+        Player newPlayer = new Player(name); // Уникальное имя для каждого игрока
+        adapter.players.add(newPlayer); // Добавление игрока в список
         adapter.notifyDataSetChanged(); // Уведомление адаптера о том, что данные изменились
+        updateNextButtonState();
+    }
+    private void updateNextButtonState(){
+        if (adapter.players.size() < MIN_PLAYERS) {
+            nextButton.setEnabled(false);
+            nextButton.setAlpha(0.5f); // Сделаем кнопку полупрозрачной
+        } else {
+            nextButton.setEnabled(true);
+            nextButton.setAlpha(1.0f); // Полная непрозрачность
+        }
+    }
+
+    public void finishedOrganizingPlayers(View view){
+        adapter.savePlayers(this);
     }
 
 }
