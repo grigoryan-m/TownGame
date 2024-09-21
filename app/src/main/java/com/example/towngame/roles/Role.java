@@ -5,6 +5,8 @@ public abstract class Role {
     protected String desciption;
     protected int iconResId;
 
+    protected String firstNightDescription;
+
     public String getName() {
         return name;
     }
@@ -13,6 +15,11 @@ public abstract class Role {
         return desciption;
     }
 
+    public String getFirstNightDescription() {
+        return firstNightDescription;
+    }
+
+    public int getIconResId(){ return iconResId; }
     @Override
     public String toString(){
         return name;
