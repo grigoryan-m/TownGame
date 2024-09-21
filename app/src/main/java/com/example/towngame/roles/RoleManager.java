@@ -1,5 +1,8 @@
 package com.example.towngame.roles;
 
+import com.example.towngame.roles.roles.Destroyer;
+import com.example.towngame.roles.roles.Villager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +27,5 @@ public class RoleManager {
             roles.add(new Villager());
         }
         return roles;
-    }
-    public static void distributeRoles(){
-
     }
 }

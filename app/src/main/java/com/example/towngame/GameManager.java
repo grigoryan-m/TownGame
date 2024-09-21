@@ -31,5 +31,8 @@ public class GameManager {
         for(int i = 0; i < players.size(); i++){
             players.get(i).role = roles.get(i);
         }
+        for(Player player : players){
+            player.role.afterDistribution();
+        }
     }
 }

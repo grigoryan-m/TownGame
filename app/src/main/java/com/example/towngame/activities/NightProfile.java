@@ -46,14 +46,6 @@ public class NightProfile extends AppCompatActivity {
         playerName.setText(gameManager.players.get(GameManager.currentPlayerID).getName());
     }
 
-    public void nextPlayer(){
-        if(GameManager.currentPlayerID < GameManager.players.size()){
-            GameManager.currentPlayerID++;
-        }
-        Intent intent = new Intent(NightProfile.this, NightProfile.class);
-        startActivity(intent);
-    }
-
     public void showRole(View view){
         Intent intent = new Intent(NightProfile.this, RoleActivity.class);
         startActivity(intent);

@@ -1,8 +1,11 @@
-package com.example.towngame.roles;
+package com.example.towngame.roles.roles;
 
 import com.example.towngame.R;
+import com.example.towngame.roles.GoodRole;
+import com.example.towngame.roles.PassiveRole;
+import com.example.towngame.roles.Role;
 
-public class Villager extends Role implements GoodRole, PassiveRole{
+public class Villager extends Role implements GoodRole, PassiveRole {
     public Villager(){
         name = "Житель";
         desciption = "В городе мирному жителю делать нечего. Выберите в какой башне будете спать!";

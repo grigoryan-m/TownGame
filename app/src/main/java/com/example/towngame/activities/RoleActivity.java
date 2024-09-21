@@ -74,11 +74,13 @@ public class RoleActivity extends AppCompatActivity {
     }
 
     public void nextPlayer(View view){
-        if(GameManager.currentPlayerID < GameManager.players.size()){
+        if(GameManager.currentPlayerID + 1 < GameManager.players.size()){
             GameManager.currentPlayerID++;
+            Intent intent = new Intent(RoleActivity.this, NightProfile.class);
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(RoleActivity.this, DayActivity.class);
         }
-        Intent intent = new Intent(RoleActivity.this, NightProfile.class);
-        startActivity(intent);
     }
 
 

@@ -24,4 +24,8 @@ public abstract class Role {
     public String toString(){
         return name;
     }
+
+    public void afterDistribution(){
+
+    }
 }
