@@ -31,6 +31,7 @@ import java.util.List;
 
 public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder> {
     public List<Player> players;
+    public static List<Player> staticPlayers;
     private Context context;
 
     public PlayerAdapter(Context context, List<Player> players) {
@@ -110,17 +111,21 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         } catch (Exception e) {
             e.printStackTrace();
         }
+        finally {
+            staticPlayers = new ArrayList<>(players);
+        }
+
     }
 
     public void loadPlayers(Context context) {
-        try (FileInputStream fis = context.openFileInput("players.dat");
-             ObjectInputStream in = new ObjectInputStream(fis)) {
+        try {
+            FileInputStream fis = context.openFileInput("players.dat");
+            ObjectInputStream in = new ObjectInputStream(fis);
             players = (ArrayList<Player>) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            players = new ArrayList<>();
-            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            notifyDataSetChanged();
         }
     }
-
-
 }

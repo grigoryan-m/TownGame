@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.towngame.GameManager;
 import com.example.towngame.R;
+import com.example.towngame.playerSelection.PlayerAdapter;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -25,6 +27,8 @@ public class WelcomeActivity extends AppCompatActivity {
         if (message != null) {
             welcomeMessage.setText(message);
         }
+
+        GameManager gameManager = new GameManager(PlayerAdapter.staticPlayers);
 
         continueButton.setOnClickListener(v -> {
         });
