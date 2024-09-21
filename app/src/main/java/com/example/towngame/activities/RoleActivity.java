@@ -49,6 +49,19 @@ public class RoleActivity extends AppCompatActivity {
         roleName.setText(GameManager.players.get(GameManager.currentPlayerID).role.getName());
 
 
+        // Highly EXPEREMENTAL
+
+        for(Player player : GameManager.players){
+            player.role.container = findViewById(R.id.playerContainer);
+            player.role.context = this;
+        }
+
+        GameManager.players.get(GameManager.currentPlayerID).role.doOnMyTurn();
+
+        //
+
+
+
         if(GameManager.nightNumber > 1) {
             radioGroup.setVisibility(View.VISIBLE);
             if (continueButton != null) {
