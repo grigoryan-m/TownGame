@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,9 +13,16 @@
         android:theme="@style/DefaultTheme"
         tools:targetApi="31">
         <activity
+            android:name=".activities.RoleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.NightProfile"
+            android:exported="false" />
+        <activity
             android:name=".activities.PlayerSelectionActivity"
             android:exported="false" />
-        <activity android:name=".activities.WelcomeActivity"
+        <activity
+            android:name=".activities.WelcomeActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"
@@ -25,7 +33,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

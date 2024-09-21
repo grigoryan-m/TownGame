@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.towngame.GameManager;
 import com.example.towngame.R;
 import com.example.towngame.activities.PlayerSelectionActivity;
 
@@ -85,8 +86,9 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     public void removePlayer(int position) {
         if (position >= 0 && position < players.size()) {
             players.remove(position);
+            GameManager.players.remove(position);
             notifyItemRemoved(position);
-            notifyItemRangeChanged(position, players.size()); // Notify that items have shifted
+            notifyItemRangeChanged(position, players.size());
         }
     }
 

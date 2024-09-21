@@ -29,6 +29,7 @@
         android:layout_width="116dp"
         android:layout_height="67dp"
         android:backgroundTint="@color/colorAccent"
+        android:onClick="startNightActivity"
         android:text="Готово"
         android:textColor="#fff" />
 
