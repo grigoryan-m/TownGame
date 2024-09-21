@@ -46,13 +46,24 @@ public class NightProfile extends AppCompatActivity {
         playerName.setText(gameManager.players.get(GameManager.currentPlayerID).getName());
     }
 
-    public void nextPlayer(View view){
+    public void nextPlayer(){
         if(GameManager.currentPlayerID < GameManager.players.size()){
             GameManager.currentPlayerID++;
         }
         Intent intent = new Intent(NightProfile.this, NightProfile.class);
         startActivity(intent);
     }
+
+    public void showRole(View view){
+        if(GameManager.players.get(GameManager.currentPlayerID).role.getName().equals("Житель")){
+            Intent intent = new Intent(NightProfile.this, RoleActivity.class);
+            startActivity(intent);
+        } else{
+          nextPlayer();
+        }
+
+    }
+
 
     @Override
     public void onBackPressed() {

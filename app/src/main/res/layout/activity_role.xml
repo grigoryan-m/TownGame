@@ -5,6 +5,91 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#D88373"
+    android:backgroundTint="#344e41"
     tools:context=".activities.RoleActivity">
+
+    <include
+        android:id="@+id/mainToolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/roleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="180dp"
+        android:fontFamily="sans-serif"
+        android:shadowColor="#000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="3"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/roleIcon" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="174dp"
+        android:layout_height="171dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="108dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bgcircle" />
+
+    <ImageView
+        android:id="@+id/roleIcon"
+        android:layout_width="154dp"
+        android:layout_height="155dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="108dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/villager" />
+
+    <TextView
+        android:id="@+id/roleDescription"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="40dp"
+        android:gravity="center_horizontal"
+        android:shadowColor="#000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/roleName" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="128dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="155dp"
+        android:layout_marginEnd="155dp"
+        android:layout_marginBottom="87dp"
+        android:onClick="nextPlayer"
+        android:text="Далее"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

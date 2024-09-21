@@ -1,14 +1,16 @@
 package com.example.towngame.roles;
 
 public abstract class Role {
-    private String name;
+    protected String name;
+    protected String desciption;
+    protected int iconResId;
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getDesciption(){
+        return desciption;
     }
 
     @Override
