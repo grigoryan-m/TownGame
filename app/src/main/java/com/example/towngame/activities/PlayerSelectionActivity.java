@@ -81,13 +81,12 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         playerRecyclerView.setAdapter(adapter);
         // Add players button
 
-        nextButton = (Button) findViewById(R.id.nextButton);
+        nextButton = (Button) findViewById(R.id.continueButton);
         updateNextButtonState();
 
         // Load players
         adapter.loadPlayers(this);
         updateNextButtonState();
-
     }
 
 

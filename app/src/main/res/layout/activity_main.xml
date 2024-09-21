@@ -29,4 +29,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/clearCache"
+        android:layout_width="200dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="165dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginEnd="165dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:onClick="clearCache"
+        android:text="Очистить кэш"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

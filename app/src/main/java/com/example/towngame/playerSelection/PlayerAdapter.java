@@ -22,7 +22,9 @@ import com.example.towngame.activities.PlayerSelectionActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -86,7 +88,6 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     public void removePlayer(int position) {
         if (position >= 0 && position < players.size()) {
             players.remove(position);
-            GameManager.players.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, players.size());
         }
@@ -106,8 +107,9 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     }
 
     public void savePlayers(Context context) {
-        try (FileOutputStream fOut = context.openFileOutput("players.dat", Context.MODE_PRIVATE);
-             ObjectOutputStream out = new ObjectOutputStream(fOut)) {
+        try {
+            FileOutputStream fOut = context.openFileOutput("players.dat", Context.MODE_PRIVATE);
+            ObjectOutputStream out = new ObjectOutputStream(fOut);
             out.writeObject(players);
             Log.d("SUC", "Saved players!");
         } catch (Exception e) {
@@ -118,16 +120,44 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         }
 
     }
-
     public void loadPlayers(Context context) {
         try {
-            FileInputStream fis = context.openFileInput("players.dat");
-            ObjectInputStream in = new ObjectInputStream(fis);
+            FileInputStream fIn = context.openFileInput("players.dat");
+            ObjectInputStream in = new ObjectInputStream(fIn);
             players = (ArrayList<Player>) in.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            Log.d("SUC", "Loaded players!");
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
-            notifyDataSetChanged();
+            if (players == null) {
+                players = new ArrayList<>();
+            }
+            staticPlayers = new ArrayList<>(players);  // Ensure staticPlayers is updated
         }
     }
-}
+//    public void loadPlayers(Context context) {
+//        try {
+//            // Check if the file exists in the internal storage directory
+//            File file = new File(context.getFilesDir(), "players.dat");
+//                FileInputStream fis = new FileInputStream(file);
+//                ObjectInputStream in = new ObjectInputStream(fis);
+//
+//                // Read the players list from the file
+//                GameManager.players = (ArrayList<Player>) in.readObject();
+//                players = (ArrayList<Player>) in.readObject();
+//
+//                Log.d("FIL", "Loaded players successfully!");
+//                in.close();
+//                fis.close();
+//            } catch (IOException | ClassNotFoundException e) {
+//                Log.d("PED", "File doesn't exist");
+//                Log.d("PED", e.getMessage());
+//                // Initialize empty lists if no file exists
+//                GameManager.players = new ArrayList<>();
+//                players = new ArrayList<>();
+//            } finally {
+//                // Update the UI after loading data
+//                notifyDataSetChanged();
+//            }
+//        }
+    }
