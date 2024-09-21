@@ -71,7 +71,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/nextButton"
+            android:id="@+id/continueButton"
             android:layout_width="wrap_content"
             android:layout_height="58dp"
             android:layout_gravity="bottom|start"

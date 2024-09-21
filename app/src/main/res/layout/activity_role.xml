@@ -80,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@+id/roleName" />
 
     <Button
-        android:id="@+id/nextButton"
+        android:id="@+id/continueButton"
         android:layout_width="128dp"
         android:layout_height="50dp"
         android:layout_marginStart="155dp"
@@ -91,5 +91,48 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="73dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginBottom="102dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/continueButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/roleDescription">
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/tower1"
+            android:layout_width="84dp"
+            android:layout_height="79dp"
+            android:padding="10dp"
+            android:src="@drawable/tower" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/tower2"
+            android:layout_width="84dp"
+            android:layout_height="79dp"
+            android:layout_marginLeft="30dp"
+            android:padding="10dp"
+            android:src="@drawable/tower" />
+
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

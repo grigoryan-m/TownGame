@@ -13,10 +13,10 @@ public class GameManager {
     public static List<Player> players;
     private List<Role> roles; // All the roles that are in the game at the moment
 
-    public static int currentPlayerID;
-
+    public static int currentPlayerID, nightNumber;
     static{
         currentPlayerID = -1;
+        nightNumber = 1;
     }
 
     public GameManager(List<Player> _players){

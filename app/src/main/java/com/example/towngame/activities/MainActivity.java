@@ -14,8 +14,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.towngame.GameManager;
 import com.example.towngame.R;
 import com.example.towngame.playerSelection.PlayerAdapter;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,5 +53,14 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_up, R.anim.slide_out_up);
             }
         });
+    }
+    public void clearCache(View view){
+        GameManager.players = new ArrayList<>();
+        try{
+            File file = new File(this.getFilesDir(), "players.dat");
+            boolean deleted = file.delete();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
