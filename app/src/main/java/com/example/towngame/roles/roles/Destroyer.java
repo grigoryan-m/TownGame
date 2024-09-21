@@ -17,11 +17,6 @@ public class Destroyer extends Role implements BadRole, ActiveRole {
         iconResId = R.drawable.destroyer;
     }
 
-    @Override
-    public void afterDistribution(){
-        firstNightDescription += "\n\n" + findTeam();
-    }
-
     public String findTeam(){
 
         StringBuilder result = new StringBuilder();
@@ -32,5 +27,10 @@ public class Destroyer extends Role implements BadRole, ActiveRole {
         }
         Log.d("ROLE", result.toString());
         return result.toString();
+    }
+
+    @Override
+    public void doOnMyTurn(){
+        displayPlayers(BadRole.class, this);
     }
 }
