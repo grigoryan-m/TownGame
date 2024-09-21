@@ -55,13 +55,8 @@ public class NightProfile extends AppCompatActivity {
     }
 
     public void showRole(View view){
-        if(GameManager.players.get(GameManager.currentPlayerID).role.getName().equals("Житель")){
-            Intent intent = new Intent(NightProfile.this, RoleActivity.class);
-            startActivity(intent);
-        } else{
-          nextPlayer();
-        }
-
+        Intent intent = new Intent(NightProfile.this, RoleActivity.class);
+        startActivity(intent);
     }
 
 

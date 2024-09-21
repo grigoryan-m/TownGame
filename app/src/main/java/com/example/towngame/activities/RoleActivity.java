@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.towngame.GameManager;
 import com.example.towngame.R;
+import com.example.towngame.playerSelection.Player;
 
 import org.w3c.dom.Text;
 
@@ -37,27 +38,39 @@ public class RoleActivity extends AppCompatActivity {
             return insets;
         });
 
-
+        radioGroup = findViewById(R.id.radioGroup);
         continueButton = findViewById(R.id.continueButton);
-        if (continueButton != null) {
-            continueButton.setEnabled(false); // Disable initially
-        }
-
-        tower1 = findViewById(R.id.tower1); // Initialize tower1
-        tower2 = findViewById(R.id.tower2); // Initialize tower2
-
-        tower1.setBackgroundResource(R.drawable.radio_bg);
-        tower2.setBackgroundResource(R.drawable.radio_bg);
-
         TextView roleName = findViewById(R.id.roleName);
         TextView roleDescription = findViewById(R.id.roleDescription);
+        ImageView roleIcon = findViewById(R.id.roleIcon);
+        Player currentPlayer = GameManager.players.get(GameManager.currentPlayerID);
+        roleIcon.setImageResource(currentPlayer.role.getIconResId());
 
         roleName.setText(GameManager.players.get(GameManager.currentPlayerID).role.getName());
-        roleDescription.setText(GameManager.players.get(GameManager.currentPlayerID).role.getDesciption());
 
 
-        tower1.setOnClickListener(v -> selectImage(0));
-        tower2.setOnClickListener(v -> selectImage(1));
+        if(GameManager.nightNumber > 1) {
+            radioGroup.setVisibility(View.VISIBLE);
+            if (continueButton != null) {
+                continueButton.setEnabled(false); // Disable initially
+            }
+
+            tower1 = findViewById(R.id.tower1); // Initialize tower1
+            tower2 = findViewById(R.id.tower2); // Initialize tower2
+
+            tower1.setBackgroundResource(R.drawable.radio_bg);
+            tower2.setBackgroundResource(R.drawable.radio_bg);
+
+            roleDescription.setText(GameManager.players.get(GameManager.currentPlayerID).role.getDesciption());
+
+            tower1.setOnClickListener(v -> selectImage(0));
+            tower2.setOnClickListener(v -> selectImage(1));
+        }
+        else{
+            continueButton.setEnabled(true);
+            radioGroup.setVisibility(View.GONE);
+            roleDescription.setText(GameManager.players.get(GameManager.currentPlayerID).role.getFirstNightDescription());
+        }
     }
 
     public void nextPlayer(View view){
