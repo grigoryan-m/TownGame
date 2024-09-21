@@ -10,11 +10,17 @@ import java.util.Collections;
 import java.util.List;
 
 public class GameManager {
-    List<Player> players;
-    List<Role> roles; // All the roles that are in the game at the moment
+    public static List<Player> players;
+    private List<Role> roles; // All the roles that are in the game at the moment
 
-    public GameManager(List<Player> players){
-        this.players = players;
+    public static int currentPlayerID;
+
+    static{
+        currentPlayerID = -1;
+    }
+
+    public GameManager(List<Player> _players){
+        players = _players;
         roles = RoleManager.allowRoles(players.size());
         distributeRoles();
         Log.d("INF", players.toString());

@@ -17,21 +17,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.towngame.GameManager;
 import com.example.towngame.playerSelection.Player;
 import com.example.towngame.playerSelection.PlayerAdapter;
 import com.example.towngame.R;
-import com.example.towngame.playerSelection.PlayerItemTouchHelperCallback;
 import com.example.towngame.playerSelection.SpacesItemDecoration;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PlayerSelectionActivity extends AppCompatActivity {
 
@@ -40,6 +35,13 @@ public class PlayerSelectionActivity extends AppCompatActivity {
 
     private PlayerAdapter adapter;
     Button nextButton;
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        GameManager.currentPlayerID = 0;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,9 +85,9 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         updateNextButtonState();
 
         // Load players
-
         adapter.loadPlayers(this);
         updateNextButtonState();
+
     }
 
 
@@ -119,7 +121,6 @@ public class PlayerSelectionActivity extends AppCompatActivity {
 
 
 
-
     public void addPlayer(String name) {
         Log.d("YourActivity", "Кнопка нажата");
         // Создайте нового игрока (можно изменить имя или добавлять через ввод)
@@ -145,36 +146,6 @@ public class PlayerSelectionActivity extends AppCompatActivity {
 
 
         startActivity(intent);
-    }
-
-
-    public void openEditPlayerDialog(Player player, int position) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Новое имя:");
-
-        // Создаем поле ввода
-        final EditText input = new EditText(this);
-        builder.setView(input);
-
-        // Устанавливаем кнопки
-        builder.setPositiveButton("Изменить", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String playerName = input.getText().toString();
-                if (!playerName.isEmpty()) {
-                    adapter.players.get(position).setName(playerName);
-                }
-            }
-        });
-        builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
     }
 
     public static class PlayerViewHolder extends RecyclerView.ViewHolder {

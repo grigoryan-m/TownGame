@@ -3,6 +3,7 @@ package com.example.towngame.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,6 +14,8 @@ import com.example.towngame.R;
 import com.example.towngame.playerSelection.PlayerAdapter;
 
 public class WelcomeActivity extends AppCompatActivity {
+
+    public static GameManager gameManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +30,10 @@ public class WelcomeActivity extends AppCompatActivity {
         if (message != null) {
             welcomeMessage.setText(message);
         }
+    }
 
-        GameManager gameManager = new GameManager(PlayerAdapter.staticPlayers);
-
-        continueButton.setOnClickListener(v -> {
-        });
+    public void startNightActivity(View view){
+        Intent intent = new Intent(WelcomeActivity.this, NightProfile.class);
+        startActivity(intent);
     }
 }
