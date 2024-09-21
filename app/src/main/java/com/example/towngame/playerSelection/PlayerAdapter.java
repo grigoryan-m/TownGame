@@ -8,6 +8,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.EditText;
+
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +31,7 @@ import java.util.List;
 
 public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder> {
     public List<Player> players;
+    public static List<Player> staticPlayers;
     private Context context;
 
     public PlayerAdapter(Context context, List<Player> players) {
@@ -50,23 +53,41 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
         // Обработчик клика для удаления игрока
         holder.itemView.setOnClickListener(v -> {
-            // Покажем диалоговое окно для подтверждения удаления
-            new AlertDialog.Builder(context)
-                    .setTitle("Удалить игрока")
-                    .setMessage("Вы уверены, что хотите удалить этого игрока?")
-                    .setPositiveButton("Удалить", (dialog, which) -> {
-                        // Удаляем игрока из списка и обновляем RecyclerView
-                        removePlayer(position);
-                    })
-                    .setNegativeButton("Отмена", null)
-                    .show();
+            // Покажем диалоговое окно для редактирования и удаления игрока
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Редактировать или удалить игрока");
+
+            // Создаем поле ввода для редактирования имени
+            EditText input = new EditText(context);
+            input.setText(player.getName());
+            builder.setView(input);
+
+            // Устанавливаем кнопки
+            builder.setPositiveButton("Сохранить", (dialog, which) -> {
+                String newName = input.getText().toString();
+                if (!newName.isEmpty()) {
+                    player.setName(newName); // Update the player's name
+                    notifyItemChanged(position); // Notify that the item has changed
+                }
+            });
+
+            builder.setNegativeButton("Удалить", (dialog, which) -> {
+                removePlayer(position); // Remove the player
+            });
+
+            builder.setNeutralButton("Отмена", null);
+
+            builder.show();
         });
     }
 
     // Метод для удаления игрока
-    private void removePlayer(int position) {
-        players.remove(position);
-        notifyItemRemoved(position);  // Сообщаем адаптеру, что элемент удален
+    public void removePlayer(int position) {
+        if (position >= 0 && position < players.size()) {
+            players.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, players.size()); // Notify that items have shifted
+        }
     }
 
     public class PlayerViewHolder extends RecyclerView.ViewHolder {
@@ -82,11 +103,6 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         return players.size();
     }
 
-    public void onItemMove(int fromPosition, int toPosition) {
-        Collections.swap(players, fromPosition, toPosition);
-        notifyItemMoved(fromPosition, toPosition);
-    }
-
     public void savePlayers(Context context) {
         try (FileOutputStream fOut = context.openFileOutput("players.dat", Context.MODE_PRIVATE);
              ObjectOutputStream out = new ObjectOutputStream(fOut)) {
@@ -95,26 +111,21 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         } catch (Exception e) {
             e.printStackTrace();
         }
+        finally {
+            staticPlayers = new ArrayList<>(players);
+        }
+
     }
 
     public void loadPlayers(Context context) {
-        try (FileInputStream fis = context.openFileInput("players.dat");
-             ObjectInputStream in = new ObjectInputStream(fis)) {
+        try {
+            FileInputStream fis = context.openFileInput("players.dat");
+            ObjectInputStream in = new ObjectInputStream(fis);
             players = (ArrayList<Player>) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            players = new ArrayList<>();
-            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            notifyDataSetChanged();
         }
     }
-
-
-
 }
-    class PlayerViewHolder extends RecyclerView.ViewHolder {
-        TextView playerName;
-
-        public PlayerViewHolder(@NonNull View itemView) {
-            super(itemView);
-            playerName = itemView.findViewById(R.id.playerName);
-        }
-    }

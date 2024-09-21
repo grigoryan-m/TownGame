@@ -27,6 +27,8 @@ public class PlayerItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+
+
         // Позволяем перемещать элементы только вверх/вниз или влево/вправо
         int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
         return makeMovementFlags(dragFlags, 0);
@@ -39,7 +41,6 @@ public class PlayerItemTouchHelperCallback extends ItemTouchHelper.Callback {
         int toPosition = target.getAdapterPosition();
 
         // Меняем местами элементы в списке
-        adapter.onItemMove(fromPosition, toPosition);
         return true;
     }
 

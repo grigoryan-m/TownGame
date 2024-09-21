@@ -79,16 +79,13 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         playerRecyclerView.setAdapter(adapter);
         // Add players button
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new PlayerItemTouchHelperCallback(adapter));
-        itemTouchHelper.attachToRecyclerView(playerRecyclerView);
-
         nextButton = (Button) findViewById(R.id.nextButton);
         updateNextButtonState();
 
         // Load players
 
         adapter.loadPlayers(this);
-        adapter.notifyDataSetChanged();
+        updateNextButtonState();
     }
 
 
@@ -143,6 +140,11 @@ public class PlayerSelectionActivity extends AppCompatActivity {
 
     public void finishedOrganizingPlayers(View view){
         adapter.savePlayers(this);
+        Intent intent = new Intent(PlayerSelectionActivity.this, WelcomeActivity.class);
+        intent.putExtra("WELCOME_MESSAGE", "Передайте устройство игроку " + adapter.players.get(0).getName() + "! А затем передавайте устройство по часовой стрелке, чтобы каждый игрок ознакомился со своей ролью!");
+
+
+        startActivity(intent);
     }
 
 
