@@ -17,8 +17,6 @@ import com.example.towngame.GameManager;
 import com.example.towngame.R;
 import com.example.towngame.playerSelection.Player;
 
-import org.w3c.dom.Text;
-
 
 public class RoleActivity extends AppCompatActivity {
 
@@ -32,7 +30,7 @@ public class RoleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_role);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainContainer), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -52,7 +50,7 @@ public class RoleActivity extends AppCompatActivity {
         // Highly EXPEREMENTAL
 
         for(Player player : GameManager.players){
-            player.role.container = findViewById(R.id.playerContainer);
+            player.role.container = findViewById(R.id.playersContainer);
             player.role.context = this;
         }
 
@@ -94,8 +92,9 @@ public class RoleActivity extends AppCompatActivity {
         }else{
             Intent intent = new Intent(RoleActivity.this, WelcomeActivity.class);
             intent.putExtra("WELCOME_MESSAGE", "Наступает день. Положите телефон на стол и начинайте обсуждение");
-            intent.putExtra("TITLE_MESSAGE", "День 1");
+            intent.putExtra("TITLE_MESSAGE", "День " + GameManager.nightNumber);
             intent.putExtra("NEXT_ACTIVITY", "DAY_ACTIVITY");
+            startActivity(intent);
         }
     }
 
@@ -125,4 +124,9 @@ public class RoleActivity extends AppCompatActivity {
         Intent intent = new Intent(RoleActivity.this, MainActivity.class);
         startActivity(intent);
     }
+
+    public void displayPlayers(){
+
+    }
+
 }

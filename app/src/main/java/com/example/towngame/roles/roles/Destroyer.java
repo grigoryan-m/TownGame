@@ -1,9 +1,14 @@
 package com.example.towngame.roles.roles;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.towngame.GameManager;
 import com.example.towngame.R;
+import com.example.towngame.playerSelection.Player;
 import com.example.towngame.roles.ActiveRole;
 import com.example.towngame.roles.BadRole;
 import com.example.towngame.roles.Role;
@@ -33,4 +38,6 @@ public class Destroyer extends Role implements BadRole, ActiveRole {
     public void doOnMyTurn(){
         displayPlayers(BadRole.class, this);
     }
+
+
 }

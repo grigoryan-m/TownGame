@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/mainContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#D88373"
@@ -101,6 +101,7 @@
         android:layout_marginEnd="117dp"
         android:layout_marginBottom="102dp"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/continueButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -145,8 +146,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+
         <GridLayout
-            android:id="@+id/playerContainer"
+            android:id="@+id/playersContainer"
             android:layout_width="wrap_content"
             android:layout_height="212dp"
             android:layout_gravity="center|top"
@@ -163,5 +165,16 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_gravity="center_horizontal" />
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="405dp"
+        android:layout_height="192dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/roleDescription"></LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

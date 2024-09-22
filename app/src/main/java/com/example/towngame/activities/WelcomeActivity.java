@@ -45,6 +45,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void startDayActivity(){
         Intent intent = new Intent(WelcomeActivity.this, DayActivity.class);
+        startActivity(intent);
     }
 
 
