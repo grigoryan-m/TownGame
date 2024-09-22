@@ -123,7 +123,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
     public void addPlayer(String name) {
         Log.d("YourActivity", "Кнопка нажата");
         // Создайте нового игрока (можно изменить имя или добавлять через ввод)
-        Player newPlayer = new Player(name); // Уникальное имя для каждого игрока
+        Player newPlayer = new Player(name.trim()); // Уникальное имя для каждого игрока
         adapter.players.add(newPlayer); // Добавление игрока в список
         adapter.notifyDataSetChanged(); // Уведомление адаптера о том, что данные изменились
         updateNextButtonState();
@@ -142,7 +142,8 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         adapter.savePlayers(this);
         Intent intent = new Intent(PlayerSelectionActivity.this, WelcomeActivity.class);
         intent.putExtra("WELCOME_MESSAGE", "Передайте устройство игроку " + adapter.players.get(0).getName() + "! А затем передавайте устройство по часовой стрелке, чтобы каждый игрок ознакомился со своей ролью!");
-
+        intent.putExtra("TITLE_MESSAGE", "Добро пожаловать к стенам города!");
+        intent.putExtra("NEXT_ACTIVITY", "NIGHT_ACTIVITY");
 
         startActivity(intent);
     }

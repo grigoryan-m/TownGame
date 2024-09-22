@@ -92,7 +92,10 @@ public class RoleActivity extends AppCompatActivity {
             Intent intent = new Intent(RoleActivity.this, NightProfile.class);
             startActivity(intent);
         }else{
-            Intent intent = new Intent(RoleActivity.this, DayActivity.class);
+            Intent intent = new Intent(RoleActivity.this, WelcomeActivity.class);
+            intent.putExtra("WELCOME_MESSAGE", "Наступает день. Положите телефон на стол и начинайте обсуждение");
+            intent.putExtra("TITLE_MESSAGE", "День 1");
+            intent.putExtra("NEXT_ACTIVITY", "DAY_ACTIVITY");
         }
     }
 
