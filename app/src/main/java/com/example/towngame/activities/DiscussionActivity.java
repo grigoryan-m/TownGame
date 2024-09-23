@@ -74,6 +74,7 @@ public class DiscussionActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(DiscussionActivity.this, MainActivity.class);
+        timer.cancel();
         startActivity(intent);
     }
 }

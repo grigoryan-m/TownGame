@@ -2,6 +2,7 @@ package com.example.towngame.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.towngame.GameManager;
 import com.example.towngame.R;
 
+import com.example.towngame.VotingSystem;
 import com.example.towngame.playerSelection.Player;
 import com.example.towngame.roles.Role;
 
@@ -40,6 +42,7 @@ public class VoteActivity extends AppCompatActivity {
         if(isFirstLaunch) {
             GameManager.currentPlayerID = 0;
             isFirstLaunch = false;
+            VotingSystem.initialize();
         }
         TextView voteText = findViewById(R.id.voteText);
         voteText.setText(getIntent().getStringExtra("VOTE_TEXT"));
@@ -74,7 +77,7 @@ public class VoteActivity extends AppCompatActivity {
 //                        RadioGroup.LayoutParams.MATCH_PARENT, // Ширина
 //                        (int) getResources().getDimension(R.dimen.player_item_height) // Высота, определенная в dimens.xml
 //                ));
-
+                playerView.setTag(player);
                 TextView playerNameView = playerView.findViewById(R.id.playerName);
                 playerNameView.setText(player.getName());
 
@@ -85,6 +88,9 @@ public class VoteActivity extends AppCompatActivity {
                         View child = container.getChildAt(i);
                         child.findViewById(R.id.playerCircle).setBackgroundResource(R.drawable.radio_bg); // Сбрасываем обводку
                     }
+
+                    // Подсчет голосов
+                    VotingSystem.vote((Player) playerView.getTag());
 
                     // Устанавливаем обводку для выбранного игрока
                     playerView.findViewById(R.id.playerCircle).setBackgroundResource(R.drawable.radio_bg_selected); // Ваш стиль обводки
@@ -108,8 +114,22 @@ public class VoteActivity extends AppCompatActivity {
             intent.putExtra("VOTE_TEXT", voteText);
             startActivity(intent);
         }else{
+            Log.d("WINNER", "Else");
             isFirstLaunch = true;
-            Intent intent = new Intent(VoteActivity.this, MainActivity.class);
+            Intent intent = new Intent(VoteActivity.this, WelcomeActivity.class);
+            Player winner = VotingSystem.getTheWinner();
+            String title, description;
+            if(winner == null) {
+                title = "Никто не отправился в город!";
+                description = "Жители не смогли определиться. Сегодня в город никто не отправляется!";
+            }else{
+                title = winner.getName() + "!";
+                description = "В город решили отправить игрока " + winner.getName() + "! " +
+                        "\nНачинается дневная активность. Передайте устройство игроку " + GameManager.players.get(0).getName() + ", а затем каждому игроку по часовой стрелке.";
+            }
+            intent.putExtra("TITLE_MESSAGE", title);
+            intent.putExtra("WELCOME_MESSAGE", description);
+            intent.putExtra("NEXT_ACTIVITY", "DISCUSSION_ACTIVITY");
             startActivity(intent);
         }
     }

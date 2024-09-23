@@ -36,12 +36,12 @@ public class WelcomeActivity extends AppCompatActivity {
     public void startActivity(View view){
         if("NIGHT_ACTIVITY".equals(getIntent().getStringExtra("NEXT_ACTIVITY"))){
             startNightActivity();
-        } else if ("DAY_ACTIVITY".equals(getIntent().getStringExtra("NEXT_ACTIVITY"))) {
-            startDayActivity();
+        } else if ("DISCUSSION_ACTIVITY".equals(getIntent().getStringExtra("NEXT_ACTIVITY"))) {
+            startDiscussionActivity();
         }
     }
 
-    public void startDayActivity(){
+    public void startDiscussionActivity(){
         Intent intent = new Intent(WelcomeActivity.this, DiscussionActivity.class);
         startActivity(intent);
     }
@@ -49,6 +49,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void startNightActivity(){
         Intent intent = new Intent(WelcomeActivity.this, NightProfile.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }

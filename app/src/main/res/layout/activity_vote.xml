@@ -67,7 +67,7 @@
 
     <ScrollView
         android:layout_width="0dp"
-        android:layout_height="289dp"
+        android:layout_height="304dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/voteButton"
         app:layout_constraintEnd_toEndOf="parent"

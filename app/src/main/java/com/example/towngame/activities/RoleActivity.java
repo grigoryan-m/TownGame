@@ -93,7 +93,7 @@ public class RoleActivity extends AppCompatActivity {
             Intent intent = new Intent(RoleActivity.this, WelcomeActivity.class);
             intent.putExtra("WELCOME_MESSAGE", "Наступает день. Положите телефон на стол и начинайте обсуждение");
             intent.putExtra("TITLE_MESSAGE", "День " + GameManager.nightNumber);
-            intent.putExtra("NEXT_ACTIVITY", "DAY_ACTIVITY");
+            intent.putExtra("NEXT_ACTIVITY", "DISCUSSION_ACTIVITY");
             startActivity(intent);
         }
     }
