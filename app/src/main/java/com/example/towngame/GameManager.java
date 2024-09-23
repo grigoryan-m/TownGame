@@ -30,6 +30,9 @@ public class GameManager {
 
     public GameManager(List<Player> _players){
         players = _players;
+        for(int i = 0; i < players.size(); i++){
+            players.get(i).setId(i);
+        }
         roles = RoleManager.allowRoles(players.size());
         Log.d("ROLES", players.toString());
         distributeRoles();

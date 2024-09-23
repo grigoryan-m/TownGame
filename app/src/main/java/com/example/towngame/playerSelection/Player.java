@@ -17,12 +17,20 @@ import com.example.towngame.roles.roles.Villager;
 public class Player implements Serializable {
     private String name;
     public transient Role role;
-
+    private transient int id;
 
 
     public Player(String name){
         this.name = name;
         this.role = new Villager();
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public int getId(){
+        return id;
     }
 
     public String getName(){
