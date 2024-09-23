@@ -73,12 +73,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <RadioGroup
+        <GridLayout
             android:id="@+id/containerPlayers"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center|top"
-            android:orientation="horizontal" />
+            android:columnCount="3"
+            android:orientation="horizontal"
+            android:rowCount="3">
+
+        </GridLayout>
     </ScrollView>
 
     <TextView

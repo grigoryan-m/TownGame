@@ -1,5 +1,7 @@
 package com.example.towngame;
 
+import android.util.Log;
+
 import com.example.towngame.playerSelection.Player;
 
 import java.util.HashMap;
@@ -21,6 +23,7 @@ public class VotingSystem {
 
     public static void vote(Player player){
         votes.replace(player.getId(), votes.get(player.getId()) + 1);
+        Log.d("VOTES", votes.toString());
     }
 
     public static Player getTheWinner() {
@@ -29,17 +32,19 @@ public class VotingSystem {
                 .sorted(Map.Entry.<Integer, Integer>comparingByValue().reversed())
                 .findFirst()
                 .orElse(null);
-        votes.remove(maxEntry.getKey());
         Map.Entry<Integer, Integer> secondEntry = votes.entrySet()
                 .stream()
+                .filter(entry -> entry.getKey() != maxEntry.getKey()) // Exclude the winner
                 .sorted(Map.Entry.<Integer, Integer>comparingByValue().reversed())
                 .findFirst()
                 .orElse(null);
+
 
         assert secondEntry != null;
         if(Objects.equals(maxEntry.getValue(), secondEntry.getValue())){
             return null;
         }
+        Log.d("VOTES", maxEntry.getKey().toString());
         return GameManager.players.get(maxEntry.getKey());
     }
 
