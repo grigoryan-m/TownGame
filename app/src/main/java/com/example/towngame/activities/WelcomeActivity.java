@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.towngame.GameManager;
 import com.example.towngame.R;
 
-import org.w3c.dom.Text;
-
 public class WelcomeActivity extends AppCompatActivity {
 
     public static GameManager gameManager;
@@ -44,7 +42,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void startDayActivity(){
-        Intent intent = new Intent(WelcomeActivity.this, DayActivity.class);
+        Intent intent = new Intent(WelcomeActivity.this, DiscussionActivity.class);
         startActivity(intent);
     }
 

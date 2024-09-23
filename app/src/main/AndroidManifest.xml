@@ -16,7 +16,7 @@
             android:name=".activities.VoteActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.DayActivity"
+            android:name=".activities.DiscussionActivity"
             android:exported="false" />
         <activity
             android:name=".activities.RoleActivity"

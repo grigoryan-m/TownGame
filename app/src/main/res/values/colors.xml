@@ -6,4 +6,5 @@
     <color name="colorPrimaryVariant">#3a5a40</color>
     <color name="colorAccent">#e63946</color>
     <color name="colorSubmit">#2A7221</color>
+    <color name="colorDisabled">#a8afad</color>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -40,7 +41,10 @@ public class VoteActivity extends AppCompatActivity {
             GameManager.currentPlayerID = 0;
             isFirstLaunch = false;
         }
+        TextView voteText = findViewById(R.id.voteText);
+        voteText.setText(getIntent().getStringExtra("VOTE_TEXT"));
         displaySettings();
+
     }
 
     @Override
@@ -57,15 +61,19 @@ public class VoteActivity extends AppCompatActivity {
         TextView playerName = findViewById(R.id.votingPlayerName);
         playerName.setText(GameManager.players.get(GameManager.currentPlayerID).getName());
 
+        Button voteButton = findViewById(R.id.voteButton);
+        voteButton.setEnabled(false);
+        voteButton.setAlpha(0.5f);
+
         // Перебираем всех игроков, кроме текущего
         for (Player player : GameManager.players) {
             if (player.role != role) {
                 // Создаем layout для игрока
                 View playerView = LayoutInflater.from(this).inflate(R.layout.player_item, container, false);
-                playerView.setLayoutParams(new RadioGroup.LayoutParams(
-                        RadioGroup.LayoutParams.MATCH_PARENT, // Ширина
-                        (int) getResources().getDimension(R.dimen.player_item_height) // Высота, определенная в dimens.xml
-                ));
+//                playerView.setLayoutParams(new RadioGroup.LayoutParams(
+//                        RadioGroup.LayoutParams.MATCH_PARENT, // Ширина
+//                        (int) getResources().getDimension(R.dimen.player_item_height) // Высота, определенная в dimens.xml
+//                ));
 
                 TextView playerNameView = playerView.findViewById(R.id.playerName);
                 playerNameView.setText(player.getName());
@@ -75,11 +83,13 @@ public class VoteActivity extends AppCompatActivity {
                     // Снимаем обводку со всех остальных игроков
                     for (int i = 0; i < container.getChildCount(); i++) {
                         View child = container.getChildAt(i);
-                        child.setBackgroundResource(R.drawable.radio_bg); // Сбрасываем обводку
+                        child.findViewById(R.id.playerCircle).setBackgroundResource(R.drawable.radio_bg); // Сбрасываем обводку
                     }
 
                     // Устанавливаем обводку для выбранного игрока
-                    playerView.setBackgroundResource(R.drawable.radio_bg_selected); // Ваш стиль обводки
+                    playerView.findViewById(R.id.playerCircle).setBackgroundResource(R.drawable.radio_bg_selected); // Ваш стиль обводки
+                    voteButton.setEnabled(true);
+                    voteButton.setAlpha(1.0f);
                 });
 
                 // Добавляем игрока в RadioGroup
@@ -93,12 +103,21 @@ public class VoteActivity extends AppCompatActivity {
     public void nextPlayerVote(View view){
         if(GameManager.currentPlayerID + 1 != GameManager.players.size()) {
             GameManager.currentPlayerID++;
+            String voteText = getIntent().getStringExtra("VOTE_TEXT");
             Intent intent = new Intent(VoteActivity.this, VoteActivity.class);
+            intent.putExtra("VOTE_TEXT", voteText);
             startActivity(intent);
         }else{
             isFirstLaunch = true;
             Intent intent = new Intent(VoteActivity.this, MainActivity.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(VoteActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
