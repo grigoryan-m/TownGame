@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".activities.DayActivity">
+    tools:context=".activities.DiscussionActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -66,14 +66,11 @@
         app:srcCompat="@drawable/player_background" />
 
     <ScrollView
-        android:layout_width="405dp"
-        android:layout_height="333dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginEnd="3dp"
+        android:layout_width="0dp"
+        android:layout_height="289dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/voteButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <RadioGroup
@@ -83,5 +80,17 @@
             android:layout_gravity="center|top"
             android:orientation="horizontal" />
     </ScrollView>
+
+    <TextView
+        android:id="@+id/voteText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Голосуй за того, кого хотел бы отправить в город!"
+        android:textColor="#fff"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/votingPlayerName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

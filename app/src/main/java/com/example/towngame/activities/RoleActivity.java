@@ -124,9 +124,4 @@ public class RoleActivity extends AppCompatActivity {
         Intent intent = new Intent(RoleActivity.this, MainActivity.class);
         startActivity(intent);
     }
-
-    public void displayPlayers(){
-
-    }
-
 }

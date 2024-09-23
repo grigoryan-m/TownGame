@@ -19,7 +19,7 @@ import com.example.towngame.R;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-public class DayActivity extends AppCompatActivity {
+public class DiscussionActivity extends AppCompatActivity {
 
     TextView textView;
     CountDownTimer timer;
@@ -28,7 +28,7 @@ public class DayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_day);
+        setContentView(R.layout.activity_discussion);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainContainer), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -59,7 +59,8 @@ public class DayActivity extends AppCompatActivity {
     }
 
     public void startVote(){
-        Intent intent = new Intent(DayActivity.this, VoteActivity.class);
+        Intent intent = new Intent(DiscussionActivity.this, VoteActivity.class);
+        intent.putExtra("VOTE_TEXT", "Голосуй за того, кого хотел бы отправить в город!");
         startActivity(intent);
     }
 
@@ -67,8 +68,12 @@ public class DayActivity extends AppCompatActivity {
         if (timer != null) {
             timer.cancel(); // Stop the timer
         }
-        Intent intent = new Intent(DayActivity.this, VoteActivity.class);
+        startVote();
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(DiscussionActivity.this, MainActivity.class);
         startActivity(intent);
     }
-
 }
