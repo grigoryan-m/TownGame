@@ -39,7 +39,6 @@ public class RoleActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Log.d("TOWERSNUM", "-1");
         continueButton = findViewById(R.id.continueButton);
         TextView roleName = findViewById(R.id.roleName);
         TextView roleDescription = findViewById(R.id.roleDescription);
@@ -49,7 +48,6 @@ public class RoleActivity extends AppCompatActivity {
         Player currentPlayer = GameManager.players.get(GameManager.currentPlayerID);
         roleIcon.setImageResource(currentPlayer.role.getIconResId());
         scrollView2 = findViewById(R.id.scrollView2);
-        Log.d("TOWERSNUM", "0");
         roleName.setText(GameManager.players.get(GameManager.currentPlayerID).role.getName());
 
 
@@ -59,7 +57,6 @@ public class RoleActivity extends AppCompatActivity {
             player.role.container = playersContainer;
             player.role.context = this;
         }
-        Log.d("TOWERSNUM", "00");
         GameManager.players.get(GameManager.currentPlayerID).role.doOnMyTurn();
 
         //
@@ -67,17 +64,14 @@ public class RoleActivity extends AppCompatActivity {
         towers[1] = findViewById(R.id.tower2); // Initialize tower2
         towers[2] = findViewById(R.id.tower3);
         initiateTowers(GameManager.players.get(GameManager.currentPlayerID).role.isCurrentlyInTown);
-        Log.d("TOWERSNUM", "01");
 
         if(GameManager.nightNumber > 1) {
-            Log.d("TOWERSNUM", "1");
             scrollView2.setVisibility(View.VISIBLE);
             playersContainer.setVisibility(View.GONE);
             scrollView.setVisibility(View.GONE);
             if (continueButton != null) {
                 continueButton.setEnabled(false); // Disable initially
             }
-            Log.d("TOWERSNUM", "2");
              // Intitialize tower3
 
             towers[0].setBackgroundResource(R.drawable.radio_bg);
@@ -90,7 +84,6 @@ public class RoleActivity extends AppCompatActivity {
             towers[2].setOnClickListener(v -> selectImage(2));
         }
         else{
-            Log.d("TOWERSNUM", "3");
             continueButton.setEnabled(true);
             playersContainer.setVisibility(View.VISIBLE);
             scrollView.setVisibility(View.VISIBLE);
@@ -101,7 +94,13 @@ public class RoleActivity extends AppCompatActivity {
 
     public void nextPlayer(View view){
         GameManager.players.get(GameManager.currentPlayerID).role.towerActivity(selectedTowerIndex);
-
+        if(GameManager.checkForDestroyersWin()){
+            Intent intent = new Intent(RoleActivity.this, WelcomeActivity.class);
+            intent.putExtra("TITLE_MESSAGE", "Разрушители победили!");
+            intent.putExtra("WELCOME_MESSAGE", "Все три башни разрушены!");
+            intent.putExtra("NEXT_ACTIVITY", "MENU");
+            startActivity(intent);
+        }
         if(GameManager.currentPlayerID + 1 < GameManager.players.size()){
             GameManager.currentPlayerID++;
             Intent intent = new Intent(RoleActivity.this, NightProfile.class);

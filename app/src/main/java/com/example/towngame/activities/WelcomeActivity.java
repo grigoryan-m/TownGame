@@ -38,6 +38,8 @@ public class WelcomeActivity extends AppCompatActivity {
             startNightActivity();
         } else if ("DISCUSSION_ACTIVITY".equals(getIntent().getStringExtra("NEXT_ACTIVITY"))) {
             startDiscussionActivity();
+        } else if ("MENU".equals(getIntent().getStringExtra("NEXT_ACTIVITY"))){
+            startMenuActivity();
         }
     }
 
@@ -49,6 +51,11 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void startNightActivity(){
         Intent intent = new Intent(WelcomeActivity.this, NightProfile.class);
+        startActivity(intent);
+    }
+
+    public void startMenuActivity(){
+        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
         startActivity(intent);
     }
 

@@ -13,6 +13,8 @@ import com.example.towngame.roles.ActiveRole;
 import com.example.towngame.roles.BadRole;
 import com.example.towngame.roles.Role;
 
+import java.util.Arrays;
+
 public class Destroyer extends Role implements BadRole, ActiveRole {
     public Destroyer(){
         super();
@@ -48,6 +50,7 @@ public class Destroyer extends Role implements BadRole, ActiveRole {
     public void towerActivity(int index){
         if(isCurrentlyInTown){
             GameManager.towers[index]--;
+            Log.d("TOWERS", Arrays.toString(GameManager.towers));
         }
     }
 

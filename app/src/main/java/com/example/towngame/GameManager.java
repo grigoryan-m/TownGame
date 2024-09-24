@@ -77,11 +77,13 @@ public class GameManager {
         }
     }
 
-    public void updateTowers(){
+    public static boolean checkForDestroyersWin(){
         for(int tower : towers){
-            if(tower <= 0){
-
+            if(tower > 0){
+                Log.d("TOWER>1", String.valueOf(tower));
+                return false;
             }
         }
+        return true;
     }
 }
