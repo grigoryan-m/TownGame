@@ -137,6 +137,7 @@
     </RadioGroup>
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="408dp"
         android:layout_height="212dp"
         android:layout_marginStart="3dp"
@@ -165,16 +166,5 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_gravity="center_horizontal" />
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="405dp"
-        android:layout_height="192dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="1dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roleDescription"></LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

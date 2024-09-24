@@ -25,7 +25,7 @@ public class GameManager {
     public static int currentPlayerID, nightNumber;
     static{
         currentPlayerID = -1;
-        nightNumber = 1;
+        nightNumber = 2;
     }
 
     public GameManager(List<Player> _players){

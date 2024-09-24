@@ -38,6 +38,15 @@ public abstract class Role {
 
     protected String firstNightDescription;
 
+    public boolean isCurrentlyInTown;
+    public RadioGroup towersContainer;
+
+    protected Role(){
+        isCurrentlyInTown = false;
+    }
+
+
+
     public String getName() {
         return name;
     }
@@ -198,6 +207,5 @@ public abstract class Role {
     }
 
     public void doOnMyTurn(){
-
     }
 }

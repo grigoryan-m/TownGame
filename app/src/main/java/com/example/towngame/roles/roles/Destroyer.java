@@ -15,6 +15,7 @@ import com.example.towngame.roles.Role;
 
 public class Destroyer extends Role implements BadRole, ActiveRole {
     public Destroyer(){
+        super();
         name = "Разрушитель";
         desciption = "Эти болваны пустили Вас в город! Выберите какую башню разрушить!";
         firstNightDescription = "Вы — разрушитель. Ваша цель — сломать все башни города. Но для этого сначала надо как-то попасть внутрь... Ниже Вы видите список своих напарников: ";
@@ -35,8 +36,11 @@ public class Destroyer extends Role implements BadRole, ActiveRole {
     }
 
     @Override
-    public void doOnMyTurn(){
-        displayPlayers(BadRole.class, this);
+    public void doOnMyTurn() {
+        super.doOnMyTurn();
+        if (GameManager.nightNumber == 1) {
+            displayPlayers(BadRole.class, this);
+        }
     }
 
 

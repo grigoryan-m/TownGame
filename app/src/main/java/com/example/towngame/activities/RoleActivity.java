@@ -3,8 +3,10 @@ package com.example.towngame.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Button;
 import androidx.activity.EdgeToEdge;
@@ -41,6 +43,8 @@ public class RoleActivity extends AppCompatActivity {
         TextView roleName = findViewById(R.id.roleName);
         TextView roleDescription = findViewById(R.id.roleDescription);
         ImageView roleIcon = findViewById(R.id.roleIcon);
+        GridLayout playersContainer = findViewById(R.id.playersContainer);
+        ScrollView scrollView = findViewById(R.id.scrollView);
         Player currentPlayer = GameManager.players.get(GameManager.currentPlayerID);
         roleIcon.setImageResource(currentPlayer.role.getIconResId());
 
@@ -50,7 +54,7 @@ public class RoleActivity extends AppCompatActivity {
         // Highly EXPEREMENTAL
 
         for(Player player : GameManager.players){
-            player.role.container = findViewById(R.id.playersContainer);
+            player.role.container = playersContainer;
             player.role.context = this;
         }
 
@@ -62,6 +66,8 @@ public class RoleActivity extends AppCompatActivity {
 
         if(GameManager.nightNumber > 1) {
             radioGroup.setVisibility(View.VISIBLE);
+            playersContainer.setVisibility(View.GONE);
+            scrollView.setVisibility(View.GONE);
             if (continueButton != null) {
                 continueButton.setEnabled(false); // Disable initially
             }
@@ -79,6 +85,8 @@ public class RoleActivity extends AppCompatActivity {
         }
         else{
             continueButton.setEnabled(true);
+            playersContainer.setVisibility(View.VISIBLE);
+            scrollView.setVisibility(View.VISIBLE);
             radioGroup.setVisibility(View.GONE);
             roleDescription.setText(GameManager.players.get(GameManager.currentPlayerID).role.getFirstNightDescription());
         }
