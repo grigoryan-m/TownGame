@@ -19,6 +19,6 @@ public class Robot extends Role implements GoodRole, ActiveRole {
 
     @Override
     public void towerActivity(int index){
-        if(GameManager.towers[index] == 1) GameManager.towers[index] = 2;
+        GameManager.towers[index].robotUpgrade();
     }
 }

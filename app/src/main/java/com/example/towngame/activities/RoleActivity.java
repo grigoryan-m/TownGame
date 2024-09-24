@@ -169,11 +169,7 @@ public class RoleActivity extends AppCompatActivity {
     public void initiateTowers(boolean isInTown){
         if(isInTown){
             for(int i = 0; i < GameManager.towers.length; i++){
-                if(GameManager.towers[i] > 0){
-                    towers[i].setImageResource(R.drawable.tower);
-                } else {
-                    towers[i].setImageResource(R.drawable.destruction);
-                }
+                towers[i].setImageResource(GameManager.towers[i].iconResId);
             }
         } else {
             for(int i = 0; i < GameManager.towers.length; i++){

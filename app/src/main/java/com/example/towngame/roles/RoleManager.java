@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.towngame.roles.roles.Builder;
 import com.example.towngame.roles.roles.Destroyer;
+import com.example.towngame.roles.roles.Robot;
 import com.example.towngame.roles.roles.Villager;
 
 import java.util.ArrayList;
@@ -21,8 +22,14 @@ public class RoleManager {
                 roles.add(new Destroyer());
                 continue;
             }
-            if((numberOfPlayers >= 5 && i == 4) || (numberOfPlayers >= 8 && i >= 6)) {
-                roles.add(new Builder());
+            if((numberOfPlayers >= 5 && numberOfPlayers < 8 && i == 4) || (numberOfPlayers >= 8 && i >= 6)) {
+                Random random = new Random();
+                double randomChance = random.nextDouble() * 100;
+                if(randomChance >= 50) {
+                    roles.add(new Builder());
+                }else{
+                    roles.add(new Robot());
+                }
             } else {
                 roles.add(new Villager());
             }
@@ -30,11 +37,6 @@ public class RoleManager {
         Log.d("ROLESDIS", roles.toString());
         return roles;
     }
-
-    private void addBadRole(){
-
-    }
-
     private static void addGoodRole(int numberOfPlayers){
         int goodLimit = numberOfPlayers - (numberOfPlayers / 2);
         Random random = new Random();

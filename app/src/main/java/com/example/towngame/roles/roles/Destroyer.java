@@ -48,7 +48,7 @@ public class Destroyer extends Role implements BadRole, ActiveRole {
     public void towerActivity(int index){
         if(isCurrentlyInTown){
             GameManager.villagerScore--;
-            GameManager.towers[index]--;
+            GameManager.towers[index].damage();
         }
     }
 

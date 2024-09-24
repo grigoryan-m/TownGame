@@ -18,6 +18,6 @@ public class Builder extends Role implements ActiveRole, GoodRole {
 
     @Override
     public void towerActivity(int index){
-        if(GameManager.towers[index] < 1) GameManager.towers[index] = 1;
+        if(GameManager.towers[index].hp < 1) GameManager.towers[index].hp = 1;
     }
 }

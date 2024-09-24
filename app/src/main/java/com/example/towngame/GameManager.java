@@ -3,15 +3,13 @@ package com.example.towngame;
 import android.content.Context;
 import android.util.Log;
 import android.widget.GridLayout;
-import android.widget.LinearLayout;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.towngame.playerSelection.Player;
 import com.example.towngame.roles.Role;
 import com.example.towngame.roles.RoleManager;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class GameManager {
@@ -24,15 +22,15 @@ public class GameManager {
 
     public static final int TOWER_NUMBER = 3;
 
-    public static int[] towers = new int[TOWER_NUMBER];
+    public static Tower[] towers = new Tower[TOWER_NUMBER];
 
     public static int currentPlayerID, nightNumber;
     static{
         currentPlayerID = -1;
         nightNumber = 1;
-        towers[0] = 1;
-        towers[1] = 1;
-        towers[2] = 1;
+        towers[0] = new Tower();
+        towers[1] = new Tower();
+        towers[2] = new Tower();
     }
 
     public GameManager(List<Player> _players){
@@ -71,8 +69,8 @@ public class GameManager {
     }
 
     public static boolean checkForDestroyerWin(){
-        for(int tower : towers){
-            if(tower > 0){
+        for(Tower tower : towers){
+            if(tower.hp > 0){
                 return false;
             }
         }
@@ -81,5 +79,41 @@ public class GameManager {
 
     public static boolean checkForVillagerWin(){
         return villagerScore >= VILLAGER_GOAL;
+    }
+
+    public static class Tower {
+        public int hp;
+        public int iconResId;
+        private static final HashMap<Integer, Integer> icons = new HashMap<>(); // hp => icon
+
+        static{
+            icons.put(0, R.drawable.destruction);
+            icons.put(1, R.drawable.tower);
+            icons.put(2, R.drawable.skyscraper);
+        }
+
+        public Tower(){
+            hp = 1;
+            iconResId = R.drawable.tower;
+        }
+
+        public void robotUpgrade(){
+            if(hp == 1) hp = 2;
+            updateIcon();
+        }
+
+        public void damage(){
+            hp--;
+            updateIcon();
+        }
+        public void damage(int damage){
+            hp -= damage;
+            updateIcon();
+        }
+
+        public void updateIcon(){
+            if(icons.containsKey(hp)) iconResId = icons.get(hp);
+            else iconResId = R.drawable.tower;
+        }
     }
 }
