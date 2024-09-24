@@ -43,6 +43,10 @@ public class VoteActivity extends AppCompatActivity {
             GameManager.currentPlayerID = 0;
             isFirstLaunch = false;
             VotingSystem.initialize();
+
+            for(Player player : GameManager.players){
+                player.role.isCurrentlyInTown = false;
+            }
         }
         TextView voteText = findViewById(R.id.voteText);
         voteText.setText(getIntent().getStringExtra("VOTE_TEXT"));
@@ -110,22 +114,23 @@ public class VoteActivity extends AppCompatActivity {
             intent.putExtra("VOTE_TEXT", voteText);
             startActivity(intent);
         }else{
-            Log.d("WINNER", "Else");
             isFirstLaunch = true;
             Intent intent = new Intent(VoteActivity.this, WelcomeActivity.class);
             Player winner = VotingSystem.getTheWinner();
             String title, description;
+            GameManager.nightNumber++;
+            GameManager.currentPlayerID = 0;
+            title = "Ночь " + GameManager.nightNumber;
             if(winner == null) {
-                title = "Никто не отправился в город!";
                 description = "Жители не смогли определиться. Сегодня в город никто не отправляется!";
             }else{
-                title = winner.getName() + "!";
+                GameManager.players.get(winner.getId()).role.isCurrentlyInTown = true;
                 description = "В город решили отправить игрока " + winner.getName() + "! " +
-                        "\nНачинается дневная активность. Передайте устройство игроку " + GameManager.players.get(0).getName() + ", а затем каждому игроку по часовой стрелке.";
+                        "\nНачинается ночь. Передайте устройство игроку " + GameManager.players.get(0).getName() + ", а затем каждому игроку по часовой стрелке.";
             }
             intent.putExtra("TITLE_MESSAGE", title);
             intent.putExtra("WELCOME_MESSAGE", description);
-            intent.putExtra("NEXT_ACTIVITY", "DISCUSSION_ACTIVITY");
+            intent.putExtra("NEXT_ACTIVITY", "NIGHT_ACTIVITY");
             startActivity(intent);
         }
     }

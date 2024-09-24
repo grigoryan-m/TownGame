@@ -30,16 +30,16 @@ public abstract class Role {
     public int playerID;
 
     protected String name;
-    protected String desciption;
+    protected String inTownDesciption;
+    protected String outOfTownDescription;
+    protected String firstNightDescription;
     protected int iconResId;
 
     public Context context;
     public GridLayout container;
 
-    protected String firstNightDescription;
 
     public boolean isCurrentlyInTown;
-    public RadioGroup towersContainer;
 
     protected Role(){
         isCurrentlyInTown = false;
@@ -51,8 +51,8 @@ public abstract class Role {
         return name;
     }
 
-    public String getDesciption(){
-        return desciption;
+    public String getDescription(){
+        return isCurrentlyInTown ? inTownDesciption : outOfTownDescription;
     }
 
     public String getFirstNightDescription() {
@@ -207,5 +207,9 @@ public abstract class Role {
     }
 
     public void doOnMyTurn(){
+    }
+
+    public void towerActivity(int index){
+
     }
 }

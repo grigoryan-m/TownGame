@@ -22,10 +22,17 @@ public class GameManager {
 
     private static GameManager instance;
 
+    public static final int TOWER_NUMBER = 3;
+
+    public static int[] towers = new int[TOWER_NUMBER];
+
     public static int currentPlayerID, nightNumber;
     static{
         currentPlayerID = -1;
-        nightNumber = 2;
+        nightNumber = 1;
+        towers[0] = 1;
+        towers[1] = 1;
+        towers[2] = 1;
     }
 
     public GameManager(List<Player> _players){
@@ -70,5 +77,11 @@ public class GameManager {
         }
     }
 
+    public void updateTowers(){
+        for(int tower : towers){
+            if(tower <= 0){
 
+            }
+        }
+    }
 }
