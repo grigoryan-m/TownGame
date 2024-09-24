@@ -12,8 +12,6 @@ import com.example.towngame.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    public static GameManager gameManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +36,8 @@ public class WelcomeActivity extends AppCompatActivity {
             startNightActivity();
         } else if ("DISCUSSION_ACTIVITY".equals(getIntent().getStringExtra("NEXT_ACTIVITY"))) {
             startDiscussionActivity();
+        } else if ("MENU".equals(getIntent().getStringExtra("NEXT_ACTIVITY"))) {
+            startMenu();
         }
     }
 
@@ -49,6 +49,11 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void startNightActivity(){
         Intent intent = new Intent(WelcomeActivity.this, NightProfile.class);
+        startActivity(intent);
+    }
+
+    public void startMenu(){
+        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
         startActivity(intent);
     }
 

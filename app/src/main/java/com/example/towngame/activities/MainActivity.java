@@ -36,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
 
+        GameManager.nightNumber = 1;
+        GameManager.players = new ArrayList<>();
+
         Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -53,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // Сброс всех переменных
-
-        GameManager.nightNumber = 1;
     }
     public void clearCache(View view){
         GameManager.players = new ArrayList<>();

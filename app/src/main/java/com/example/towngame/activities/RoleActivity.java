@@ -29,6 +29,12 @@ public class RoleActivity extends AppCompatActivity {
     private Button continueButton;
     private int selectedTowerIndex = -1;
 
+    public static boolean gameOver;
+
+    static {
+        gameOver = false;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,18 +106,33 @@ public class RoleActivity extends AppCompatActivity {
     }
 
     public void nextPlayer(View view){
-        GameManager.players.get(GameManager.currentPlayerID).role.towerActivity(selectedTowerIndex);
-
+        if(GameManager.nightNumber > 1 && GameManager.players.get(GameManager.currentPlayerID).role.isCurrentlyInTown) {
+            GameManager.players.get(GameManager.currentPlayerID).role.towerActivity(selectedTowerIndex);
+        }
         if(GameManager.currentPlayerID + 1 < GameManager.players.size()){
             GameManager.currentPlayerID++;
             Intent intent = new Intent(RoleActivity.this, NightProfile.class);
             startActivity(intent);
         }else{
-            Intent intent = new Intent(RoleActivity.this, WelcomeActivity.class);
-            intent.putExtra("WELCOME_MESSAGE", "Наступает день. Положите устройство на стол и начинайте обсуждение");
-            intent.putExtra("TITLE_MESSAGE", "День " + GameManager.nightNumber);
-            intent.putExtra("NEXT_ACTIVITY", "DISCUSSION_ACTIVITY");
-            startActivity(intent);
+            if(GameManager.checkForDestroyerWin()) {
+                Intent intent = new Intent(RoleActivity.this, WelcomeActivity.class);
+                intent.putExtra("TITLE_MESSAGE", "Победа разрушителей!");
+                intent.putExtra("WELCOME_MESSAGE", "Все башни разрушены!");
+                intent.putExtra("NEXT_ACTIVITY", "MENU");
+                startActivity(intent);
+            } else if(GameManager.checkForVillagerWin()) {
+                Intent intent = new Intent(RoleActivity.this, WelcomeActivity.class);
+                intent.putExtra("TITLE_MESSAGE", "Победа жителей!");
+                intent.putExtra("WELCOME_MESSAGE", "Жители захватили город!");
+                intent.putExtra("NEXT_ACTIVITY", "MENU");
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(RoleActivity.this, WelcomeActivity.class);
+                intent.putExtra("WELCOME_MESSAGE", "Наступает день. Положите устройство на стол и начинайте обсуждение");
+                intent.putExtra("TITLE_MESSAGE", "День " + GameManager.nightNumber);
+                intent.putExtra("NEXT_ACTIVITY", "DISCUSSION_ACTIVITY");
+                startActivity(intent);
+            }
         }
     }
 

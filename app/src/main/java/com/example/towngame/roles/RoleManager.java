@@ -12,13 +12,6 @@ public class RoleManager {
 
     public static List<Role> allowRoles(int numberOfPlayers){
         List<Role> roles = new ArrayList<>();
-
-        /*
-            5
-            0 - 4
-            1 <=
-
-         */
         for(int i = 0; i < numberOfPlayers; i++){
             if((i + 1) <= numberOfPlayers / 2){
                 roles.add(new Destroyer());

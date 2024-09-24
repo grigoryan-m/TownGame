@@ -18,9 +18,9 @@ public class GameManager {
     public static List<Player> players;
     private List<Role> roles; // All the roles that are in the game at the moment
     public Context context;
-    public LinearLayout container;
 
-    private static GameManager instance;
+    public static int villagerScore;
+    private static int VILLAGER_GOAL;
 
     public static final int TOWER_NUMBER = 3;
 
@@ -43,6 +43,7 @@ public class GameManager {
         roles = RoleManager.allowRoles(players.size());
         Log.d("ROLES", players.toString());
         distributeRoles();
+        VILLAGER_GOAL = (players.size() / 2) + 2;
     }
 
     private GameManager(){
@@ -56,14 +57,6 @@ public class GameManager {
         }
     }
 
-
-    //Singleton
-    public static GameManager getInstance() {
-        if (instance == null) {
-            instance = new GameManager();
-        }
-        return instance;
-    }
     public void distributeRoles(){
         Collections.shuffle(roles);
         for(int i = 0; i < players.size(); i++){
@@ -77,11 +70,16 @@ public class GameManager {
         }
     }
 
-    public void updateTowers(){
+    public static boolean checkForDestroyerWin(){
         for(int tower : towers){
-            if(tower <= 0){
-
+            if(tower > 0){
+                return false;
             }
         }
+        return true;
+    }
+
+    public static boolean checkForVillagerWin(){
+        return villagerScore >= VILLAGER_GOAL;
     }
 }
