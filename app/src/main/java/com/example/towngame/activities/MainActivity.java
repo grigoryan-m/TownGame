@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_up, R.anim.slide_out_up);
             }
         });
+        // Сброс всех переменных
+
+        GameManager.nightNumber = 1;
     }
     public void clearCache(View view){
         GameManager.players = new ArrayList<>();

@@ -17,7 +17,8 @@ public class Destroyer extends Role implements BadRole, ActiveRole {
     public Destroyer(){
         super();
         name = "Разрушитель";
-        desciption = "Эти болваны пустили Вас в город! Выберите какую башню разрушить!";
+        inTownDesciption = "Эти болваны пустили Вас в город! Выберите какую башню разрушить!";
+        outOfTownDescription = "Ну же! Врите, преувеличивайте, предавайте! Попадите в город любой ценой!";
         firstNightDescription = "Вы — разрушитель. Ваша цель — сломать все башни города. Но для этого сначала надо как-то попасть внутрь... Ниже Вы видите список своих напарников: ";
 
         iconResId = R.drawable.destroyer;
@@ -40,6 +41,13 @@ public class Destroyer extends Role implements BadRole, ActiveRole {
         super.doOnMyTurn();
         if (GameManager.nightNumber == 1) {
             displayPlayers(BadRole.class, this);
+        }
+    }
+
+    @Override
+    public void towerActivity(int index){
+        if(isCurrentlyInTown){
+            GameManager.towers[index]--;
         }
     }
 
